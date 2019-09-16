@@ -1,0 +1,41 @@
+<idea-plugin>
+  <id>com.pinbraerts.lammps</id>
+  <name>LAMMPS</name>
+  <version>1.0</version>
+  <vendor email="pinbraerts@yandex.ru" url="">did</vendor>
+
+  <description><![CDATA[
+      Language plugin for LAMMPS support in IntelliJ
+    ]]></description>
+
+  <change-notes><![CDATA[
+      NothingNothingNothingNothingNothingNothingNothingNothingNothingNothing
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+    <fileType name="LAMMPS" implementationClass="com.pinbraerts.lammps.LAMMPSFileType"
+              fieldName="INSTANCE" language="LAMMPS"/>
+    <lang.parserDefinition
+            language="LAMMPS" implementationClass="com.pinbraerts.lammps.LAMMPSParserDefinition"/>
+    <lang.syntaxHighlighterFactory
+            language="LAMMPS" implementationClass="com.pinbraerts.lammps.highlighting.LAMMPSSyntaxHighlighterFactory"/>
+    <colorSettingsPage implementation="com.pinbraerts.lammps.highlighting.LAMMPSColorSettingsPage"/>
+    <completion.contributor language="LAMMPS" implementationClass="com.pinbraerts.lammps.completion.LAMMPSCompletionContributor"/>
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>

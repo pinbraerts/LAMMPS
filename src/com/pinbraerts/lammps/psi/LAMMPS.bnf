@@ -1,0 +1,46 @@
+{
+    parserClass = "com.pinbraerts.lammps.LAMMPSParser"
+    extends = "com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix = "LAMMPS"
+    psiImplClassSuffix = "Impl"
+    psiPackage = "com.pinbraerts.lammps.psi"
+    psiImplPackage = "com.pinbraerts.lammps.psi.impl"
+    //psiImplUtilClass = "com.pinbraerts.lammps.psi.impl.LAMMPSPsiImplUtil"
+
+    elementTypeHolderClass = "com.pinbraerts.lammps.LAMMPSTypes"
+    elementTypeClass = "com.pinbraerts.lammps.psi.LAMMPSElementType"
+    tokenTypeClass = "com.pinbraerts.lammps.psi.LAMMPSTokenType"
+}
+
+lammpsFile ::= line*
+
+line ::=
+    operator CRLF
+  | COMMENT CRLF
+  | CRLF
+
+operator ::= COMMAND (expr+ AMPERSAND CRLF (COMMENT CRLF+)*)* expr+
+
+expr ::= term (ADD_OPERATOR term)*
+
+term ::= factor (MUL_OPERATOR factor)*
+
+factor ::=
+    OPEN_PARENTHESIS expr CLOSE_PARENTHESIS
+  | unary
+
+unary ::= ADD_OPERATOR? const item?
+
+item ::= OPEN_BRACKET expr CLOSE_BRACKET
+
+const ::=
+    NUMBER
+  | STRING
+  | COMMAND
+  | FILE_PATH
+  | variable
+  | DOLLAR_SIGN variable
+  | DOLLAR_SIGN OPEN_BRACE expr CLOSE_BRACE
+
+variable ::= IDENTIFIER
